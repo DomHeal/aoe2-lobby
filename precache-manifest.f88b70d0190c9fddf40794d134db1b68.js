@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "c238e9d99cbac04095ba128b5f5d9708",
+    "revision": "7865f6e9027422ed599f7dd1fb878429",
     "url": "/aoe2-lobby/index.html"
   },
   {
-    "revision": "4ec3e4aec57809861247",
+    "revision": "9dfb18dbe8daaf4e055e",
     "url": "/aoe2-lobby/static/css/main.74c35f3b.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/aoe2-lobby/static/js/2.55056a7b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "4ec3e4aec57809861247",
-    "url": "/aoe2-lobby/static/js/main.ba960b27.chunk.js"
+    "revision": "9dfb18dbe8daaf4e055e",
+    "url": "/aoe2-lobby/static/js/main.28d6d4dd.chunk.js"
   },
   {
     "revision": "3d80b64881b892b1cb7b",
