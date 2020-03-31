@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7865f6e9027422ed599f7dd1fb878429",
+    "revision": "856ef4028393b2902abf46d8a1833843",
     "url": "/aoe2-lobby/index.html"
   },
   {
-    "revision": "9dfb18dbe8daaf4e055e",
+    "revision": "be8ea9dfb262d1b07804",
     "url": "/aoe2-lobby/static/css/main.74c35f3b.chunk.css"
   },
   {
-    "revision": "21a462b6ba647f64f097",
-    "url": "/aoe2-lobby/static/js/2.55056a7b.chunk.js"
+    "revision": "dbe15af20ab6b45167f9",
+    "url": "/aoe2-lobby/static/js/2.c97a1a6d.chunk.js"
   },
   {
     "revision": "5ac48c47bb3912b14c2d8de4f56d5ae8",
-    "url": "/aoe2-lobby/static/js/2.55056a7b.chunk.js.LICENSE.txt"
+    "url": "/aoe2-lobby/static/js/2.c97a1a6d.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "9dfb18dbe8daaf4e055e",
-    "url": "/aoe2-lobby/static/js/main.28d6d4dd.chunk.js"
+    "revision": "be8ea9dfb262d1b07804",
+    "url": "/aoe2-lobby/static/js/main.6b442f88.chunk.js"
   },
   {
     "revision": "3d80b64881b892b1cb7b",
