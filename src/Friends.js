@@ -6,8 +6,6 @@ import './App.css';
 export default function Friends() {
     const [results, setResults] = useState([]);
     const [friends, setFriends] = useState([]);
-    const [lobby, setLobby] = useState('');
-    const [isJoining, setIsJoining] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [autoJoin, setAutoJoin] = useState(false)
 
@@ -20,13 +18,15 @@ export default function Friends() {
                 headers: {
                     'Access-Control-Allow-Origin': '*'
                 },
-                // mode: 'no-cors', // 'cors' by default
             })
                 .then(res => res.json())
                 .then(
                     (result) => {
                         setResults(result)
                         setIsLoading(false)
+                        if (autoJoin){
+                            joinUser()
+                        }
                     },
                     (error) => {
                         console.error(error)
@@ -43,8 +43,6 @@ export default function Friends() {
             const found = res.players.filter(playe => playe.name === friends);
             if (found.length > 0) {
                 console.log('Attempting to join - ' + friends);
-                setLobby(res)
-                setIsJoining('109775240949250023');
                 const {lobby_id} = res;
                 joinLobby(lobby_id);
             }
@@ -60,8 +58,6 @@ export default function Friends() {
                 const found = res.players.filter(playe => playe.name === friends);
                 if (found.length > 0) {
                     console.log('Attempting to join - ' + friends);
-                    setLobby(res)
-                    setIsJoining('109775240949250023');
                     const {lobby_id} = res;
                     joinLobby(lobby_id);
                     break;
