@@ -2,19 +2,18 @@ import React, {useEffect, useState} from "react";
 import {Button, Spinner, Table} from 'reactstrap';
 import './App.css';
 
-const friendsList = [
-    "Xeon",
-    "methaddict",
-    "Welshwonder"
-];
 export default function Friends() {
     const [results, setResults] = useState([]);
+    const [friends, setFriends] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [autoJoin, setAutoJoin] = useState(false)
 
     useEffect(() => {
+
         const interval = setInterval(() => {
             console.log('searching for lobbies')
             fetch("/api/lobbies?game=aoe2de", {
+                credentials: "include",
                 headers: {
                     'Access-Control-Allow-Origin': '*'
                 },
@@ -22,18 +21,11 @@ export default function Friends() {
                 .then(res => res.json())
                 .then(
                     (result) => {
-                        console.log(result)
-                        const x = [];
-                        for (const res of results) {
-                            const found = res.players.filter(playe => friendsList.includes(playe.name));
-                            if (found > 0){
-                                console.log("friend found");
-                                x.push(found)
-                            }
-                        }
-
-                        setResults(x);
+                        setResults(result)
                         setIsLoading(false)
+                        if (autoJoin){
+                            joinUser()
+                        }
                     },
                     (error) => {
                         console.error(error)
@@ -43,6 +35,35 @@ export default function Friends() {
         return () => clearInterval(interval);
 
     }, []);
+
+    const joinUser = () => {
+        results.forEach(res => {
+            // console.log(res)
+            const found = res.players.filter(playe => playe.name === friends);
+            if (found.length > 0) {
+                console.log('Attempting to join - ' + friends);
+                const {lobby_id} = res;
+                joinLobby(lobby_id);
+            }
+        });
+    };
+
+
+    useEffect(() => {
+        console.log('Starting auto join')
+        while (autoJoin) {
+            console.log('Searching....')
+            for (const res of results) {
+                const found = res.players.filter(playe => playe.name === friends);
+                if (found.length > 0) {
+                    console.log('Attempting to join - ' + friends);
+                    const {lobby_id} = res;
+                    joinLobby(lobby_id);
+                    break;
+                }
+            }
+        }
+    }, [autoJoin]);
 
     const joinLobby = (lobby_id) => {
         let url = "steam://joinlobby/813780/" + lobby_id;
@@ -99,7 +120,7 @@ export default function Friends() {
     if (isLoading) {
         return <>
             <Spinner type="grow" color="light"/>
-            <a>Finding friends...</a>
+            <a>Loading lobbies...</a>
         </>
     }
     return <>
@@ -107,7 +128,6 @@ export default function Friends() {
             <thead>
             <tr>
                 <th>#</th>
-                <th>Friend</th>
                 <th>Type</th>
                 <th>Name</th>
                 <th>Players</th>
@@ -129,7 +149,6 @@ export default function Friends() {
                 }
                 return <tr key={result.match_uuid}>
                     <th scope="row"><Button onClick={() => joinLobby(result.lobby_id)}>Join</Button></th>
-                    <td></td>
                     <td>{mapGameTypeComponent(result.game_type)}</td>
                     <td>{result.name}</td>
                     <td>{result.num_players + '/' + result.num_slots}</td>
