@@ -42,7 +42,7 @@ export default function Friends() {
         }, 5000);
         return () => clearInterval(interval);
 
-    }, []);
+    });
 
     const joinLobby = (lobby_id) => {
         let url = "steam://joinlobby/813780/" + lobby_id;
@@ -87,9 +87,9 @@ export default function Friends() {
                 return "Normal";
             case 4:
                 return "Large";
-            case 4:
-                return "Giant";
             case 5:
+                return "Giant";
+            case 6:
                 return "Luda";
             default:
                 return size
@@ -99,7 +99,7 @@ export default function Friends() {
     if (isLoading) {
         return <>
             <Spinner type="grow" color="light"/>
-            <a>Finding friends...</a>
+            <p>Finding friends...</p>
         </>
     }
     return <>

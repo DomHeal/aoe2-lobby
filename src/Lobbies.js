@@ -4,9 +4,7 @@ import './App.css';
 
 export default function Friends() {
     const [results, setResults] = useState([]);
-    const [friends, setFriends] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [autoJoin, setAutoJoin] = useState(false)
 
     useEffect(() => {
 
@@ -23,9 +21,6 @@ export default function Friends() {
                     (result) => {
                         setResults(result)
                         setIsLoading(false)
-                        if (autoJoin){
-                            joinUser()
-                        }
                     },
                     (error) => {
                         console.error(error)
@@ -35,35 +30,6 @@ export default function Friends() {
         return () => clearInterval(interval);
 
     }, []);
-
-    const joinUser = () => {
-        results.forEach(res => {
-            // console.log(res)
-            const found = res.players.filter(playe => playe.name === friends);
-            if (found.length > 0) {
-                console.log('Attempting to join - ' + friends);
-                const {lobby_id} = res;
-                joinLobby(lobby_id);
-            }
-        });
-    };
-
-
-    useEffect(() => {
-        console.log('Starting auto join')
-        while (autoJoin) {
-            console.log('Searching....')
-            for (const res of results) {
-                const found = res.players.filter(playe => playe.name === friends);
-                if (found.length > 0) {
-                    console.log('Attempting to join - ' + friends);
-                    const {lobby_id} = res;
-                    joinLobby(lobby_id);
-                    break;
-                }
-            }
-        }
-    }, [autoJoin]);
 
     const joinLobby = (lobby_id) => {
         let url = "steam://joinlobby/813780/" + lobby_id;
@@ -108,9 +74,9 @@ export default function Friends() {
                 return "Normal";
             case 4:
                 return "Large";
-            case 4:
-                return "Giant";
             case 5:
+                return "Giant";
+            case 6:
                 return "Luda";
             default:
                 return size
@@ -120,7 +86,7 @@ export default function Friends() {
     if (isLoading) {
         return <>
             <Spinner type="grow" color="light"/>
-            <a>Loading lobbies...</a>
+            <p>Loading lobbies...</p>
         </>
     }
     return <>

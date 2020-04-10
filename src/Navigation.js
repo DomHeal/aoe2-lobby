@@ -1,26 +1,19 @@
-import React, {useState} from "react";
-import {Collapse, Nav, Navbar, NavbarBrand, NavbarText, NavbarToggler, NavItem, NavLink} from 'reactstrap';
+import React from "react";
+import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem} from 'reactstrap';
 import './App.css';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-} from "react-router-dom";
+import {Link, Route, Switch} from "react-router-dom";
 import Friends from "./Friends";
 import Lobbies from "./Lobbies";
 import Home from "./Home";
-export default function Navigation() {
-    const [isOpen, setIsOpen] = useState(false);
 
-    const toggle = () => setIsOpen(!isOpen);
+export default function Navigation() {
 
     return (
         <div>
             <Navbar color="light" light expand="md">
                 <NavbarBrand href="/">AoE</NavbarBrand>
                 <NavbarToggler/>
-                <Collapse isOpen={isOpen} navbar>
+                <Collapse navbar>
                     <Nav className="mr-auto" navbar>
                         <NavItem>
                             <Link to="/">Home</Link>
