@@ -13,7 +13,7 @@
     "reactstrap": "^8.4.1"
   },
   "proxy": "https://aoe2.net",
-  "homepage": "http://domheal.github.io/aoe2-de-lobby",
+  "homepage": "http://domheal.github.io/aoe2-lobby",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
