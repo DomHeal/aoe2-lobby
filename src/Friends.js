@@ -97,11 +97,11 @@ export default function Friends() {
     if (isLoading) {
         return <>
             <Spinner type="grow" color="light"/>
-            <p>Finding friends...</p>
+            <p >Finding friends...</p>
         </>
     }
     return <>
-        <Table size={'sm'}>
+        <Table dark size={'sm'}>
             <thead>
             <tr>
                 <th>#</th>

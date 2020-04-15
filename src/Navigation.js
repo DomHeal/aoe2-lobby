@@ -11,7 +11,7 @@ export default function Navigation() {
 
     return (
         <div>
-            <Navbar color="light" light expand="md">
+            <Navbar dark expand="md">
                 <NavbarBrand href="/">AoE2:DE</NavbarBrand>
                 <NavbarToggler/>
                 <Collapse navbar>

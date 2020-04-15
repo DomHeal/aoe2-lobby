@@ -85,7 +85,7 @@ export default function Friends() {
         </>
     }
     return <>
-        <Table size={'sm'}>
+        <Table dark size={'sm'}>
             <thead>
             <tr>
                 <th>#</th>

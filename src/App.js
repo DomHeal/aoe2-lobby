@@ -1,16 +1,16 @@
 import React from 'react';
 import './App.css';
 import Navigation from "./Navigation";
-import {HashRouter} from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 
 
 function App() {
     return (
-        <HashRouter basename='/'>
+        <BrowserRouter basename='/'>
             <div className="App">
                 <Navigation/>
             </div>
-        </HashRouter>
+        </BrowserRouter>
     );
 }
 
