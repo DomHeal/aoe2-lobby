@@ -6,7 +6,7 @@ import {BrowserRouter} from "react-router-dom";
 
 function App() {
     return (
-        <BrowserRouter basename='/'>
+        <BrowserRouter basename='/aoe2-lobby'>
             <div className="App">
                 <Navigation/>
             </div>
