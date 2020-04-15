@@ -18,13 +18,15 @@ export default function Friends() {
                 .then(res => res.json())
                 .then(
                     (result) => {
-                        console.log(result)
+                        // console.log(result)
                         const x = [];
-                        for (const res of results) {
+                        for (const res of result) {
+                            // console.log(res)
                             const found = res.players.filter(playe => friendsList.includes(playe.name));
-                            if (found > 0){
+                            // console.log(found)
+                            if (found.length > 0){
                                 console.log("friend found");
-                                x.push(found)
+                                x.push(res)
                             }
                         }
 
@@ -114,6 +116,7 @@ export default function Friends() {
             </thead>
             <tbody>
             {results.map(result => {
+                console.log(result)
                 return <tr key={result.match_uuid}>
                     <th scope="row"><Button onClick={() => joinLobby(result.lobby_id)}>Join</Button></th>
                     <td>{result.players.map(player => <p>{player.name}</p>)}</td>
