@@ -14,7 +14,7 @@ export default function Friends() {
     useEffect(() => {
         const interval = setInterval(() => {
             console.log('searching for lobbies')
-            fetch("/api/lobbies?game=aoe2de", {
+            fetch("https://aoe2.net/api/lobbies?game=aoe2de", {
                 headers: {
                     'Access-Control-Allow-Origin': '*'
                 },
@@ -118,18 +118,9 @@ export default function Friends() {
             </thead>
             <tbody>
             {results.map(result => {
-                if (result.num_players === result.num_slots) {
-                    return null
-                }
-                if (result.server !== 'westeurope' && result.server !== 'ukwest') {
-                    return null
-                }
-                if (result.has_password) {
-                    return null
-                }
                 return <tr key={result.match_uuid}>
                     <th scope="row"><Button onClick={() => joinLobby(result.lobby_id)}>Join</Button></th>
-                    <td></td>
+                    <td>{result.players.map(player => <p>{player.name}</p>)}</td>
                     <td>{mapGameTypeComponent(result.game_type)}</td>
                     <td>{result.name}</td>
                     <td>{result.num_players + '/' + result.num_slots}</td>

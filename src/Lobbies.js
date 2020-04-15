@@ -10,7 +10,7 @@ export default function Friends() {
 
         const interval = setInterval(() => {
             console.log('searching for lobbies')
-            fetch("/api/lobbies?game=aoe2de", {
+            fetch("https://aoe2.net/api/lobbies?game=aoe2de", {
                 credentials: "include",
                 headers: {
                     'Access-Control-Allow-Origin': '*'
@@ -104,6 +104,7 @@ export default function Friends() {
             </thead>
             <tbody>
             {results.map(result => {
+                console.log(result)
                 if (result.num_players === result.num_slots) {
                     return null
                 }
