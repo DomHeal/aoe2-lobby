@@ -17,7 +17,6 @@ export default function Friends() {
             fetchData()
         }, 5000);
         return () => clearInterval(interval);
-
     });
 
     const fetchData = () => {

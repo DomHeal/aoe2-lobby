@@ -38,11 +38,11 @@ export default function Navigation() {
                 <Route path="/lobbies">
                     <Lobbies/>
                 </Route>
-                <Route path="/">
-                    <Home/>
-                </Route>
                 <Route path="/about">
                     <About/>
+                </Route>
+                <Route path="/">
+                    <Home/>
                 </Route>
             </Switch>
         </div>
