@@ -12,36 +12,40 @@ export default function Friends() {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
+        fetchData()
         const interval = setInterval(() => {
-            console.log('searching for lobbies')
-            fetch("https://aoe2.net/api/lobbies?game=aoe2de")
-                .then(res => res.json())
-                .then(
-                    (result) => {
-                        // console.log(result)
-                        const x = [];
-                        for (const res of result) {
-                            // console.log(res)
-                            const found = res.players.filter(playe => friendsList.includes(playe.name));
-                            // console.log(found)
-                            if (found.length > 0){
-                                console.log("friend found");
-                                x.push(res)
-                            }
-                        }
-
-                        setResults(x);
-                        setIsLoading(false)
-                    },
-                    (error) => {
-                        console.error(error)
-                    }
-                )
+            fetchData()
         }, 5000);
         return () => clearInterval(interval);
 
     });
 
+    const fetchData = () => {
+        console.log('searching for lobbies')
+        fetch("https://aoe2.net/api/lobbies?game=aoe2de")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    // console.log(result)
+                    const x = [];
+                    for (const res of result) {
+                        // console.log(res)
+                        const found = res.players.filter(playe => friendsList.includes(playe.name));
+                        // console.log(found)
+                        if (found.length > 0){
+                            console.log("friend found");
+                            x.push(res)
+                        }
+                    }
+
+                    setResults(x);
+                    setIsLoading(false)
+                },
+                (error) => {
+                    console.error(error)
+                }
+            )
+    }
     const joinLobby = (lobby_id) => {
         let url = "steam://joinlobby/813780/" + lobby_id;
         console.log('Attempting to join lobby - ' + url)
@@ -97,7 +101,7 @@ export default function Friends() {
     if (isLoading) {
         return <>
             <Spinner type="grow" color="light"/>
-            <p >Finding friends...</p>
+            <p className="text-white">Finding friends...</p>
         </>
     }
     return <>
