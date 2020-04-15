@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/aoe2-de-lobby/static/css/main.63dbd4ab.chunk.css",
-    "main.js": "/aoe2-de-lobby/static/js/main.899083f6.chunk.js",
-    "main.js.map": "/aoe2-de-lobby/static/js/main.899083f6.chunk.js.map",
+    "main.js": "/aoe2-de-lobby/static/js/main.ac974289.chunk.js",
+    "main.js.map": "/aoe2-de-lobby/static/js/main.ac974289.chunk.js.map",
     "runtime-main.js": "/aoe2-de-lobby/static/js/runtime-main.7b848796.js",
     "runtime-main.js.map": "/aoe2-de-lobby/static/js/runtime-main.7b848796.js.map",
-    "static/js/2.e527b154.chunk.js": "/aoe2-de-lobby/static/js/2.e527b154.chunk.js",
-    "static/js/2.e527b154.chunk.js.map": "/aoe2-de-lobby/static/js/2.e527b154.chunk.js.map",
+    "static/js/2.433873f6.chunk.js": "/aoe2-de-lobby/static/js/2.433873f6.chunk.js",
+    "static/js/2.433873f6.chunk.js.map": "/aoe2-de-lobby/static/js/2.433873f6.chunk.js.map",
     "index.html": "/aoe2-de-lobby/index.html",
-    "precache-manifest.c5e8e1b465d43057729c46d316efdeef.js": "/aoe2-de-lobby/precache-manifest.c5e8e1b465d43057729c46d316efdeef.js",
+    "precache-manifest.be47bd1131b7433b336f3efa81547633.js": "/aoe2-de-lobby/precache-manifest.be47bd1131b7433b336f3efa81547633.js",
     "service-worker.js": "/aoe2-de-lobby/service-worker.js",
     "static/css/main.63dbd4ab.chunk.css.map": "/aoe2-de-lobby/static/css/main.63dbd4ab.chunk.css.map",
-    "static/js/2.e527b154.chunk.js.LICENSE.txt": "/aoe2-de-lobby/static/js/2.e527b154.chunk.js.LICENSE.txt"
+    "static/js/2.433873f6.chunk.js.LICENSE.txt": "/aoe2-de-lobby/static/js/2.433873f6.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.7b848796.js",
-    "static/js/2.e527b154.chunk.js",
+    "static/js/2.433873f6.chunk.js",
     "static/css/main.63dbd4ab.chunk.css",
-    "static/js/main.899083f6.chunk.js"
+    "static/js/main.ac974289.chunk.js"
   ]
 }
