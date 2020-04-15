@@ -10,12 +10,7 @@ export default function Friends() {
 
         const interval = setInterval(() => {
             console.log('searching for lobbies')
-            fetch("https://aoe2.net/api/lobbies?game=aoe2de", {
-                credentials: "include",
-                headers: {
-                    'Access-Control-Allow-Origin': '*'
-                },
-            })
+            fetch("https://aoe2.net/api/lobbies?game=aoe2de")
                 .then(res => res.json())
                 .then(
                     (result) => {
