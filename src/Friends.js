@@ -5,7 +5,7 @@ import './App.css';
 const friendsList = [
     "Xeon",
     "methaddict",
-    "Welshwonder"
+    "WELSHWONDER"
 ];
 export default function Friends() {
     const [results, setResults] = useState([]);
