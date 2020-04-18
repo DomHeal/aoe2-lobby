@@ -1,6 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {Button, Spinner, Table} from 'reactstrap';
+import {Button, Table} from 'reactstrap';
 import './App.css';
+import GameType from "./components/GameType";
+import MapSize from "./components/MapSize";
+import Loading from "./components/Loading";
+import {joinLobby} from "./util";
 
 export default function Friends() {
     const [results, setResults] = useState([]);
@@ -29,64 +33,12 @@ export default function Friends() {
                 }
             )
     }
-    const joinLobby = (lobby_id) => {
-        let url = "steam://joinlobby/813780/" + lobby_id;
-        console.log('Attempting to join lobby - ' + url)
-        let i = document.createElement('iframe');
-        i.style.display = 'none';
-        i.src = url;
-        i.onload = function () {
-            i.parentNode.removeChild(i);
-        };
-        document.body.appendChild(i)
-    };
 
-    const mapGameTypeComponent = (game_type) => {
-
-        switch (game_type) {
-            case 0:
-                return "Random Map";
-            case 1:
-                return "Regicide";
-            case 2:
-                return "Deathmatch";
-            case 3:
-                return "Scenario";
-            case 13:
-                return "Empire Wars";
-            default:
-                return game_type
-        }
-    };
-
-    const mapSizeComponent = (size) => {
-
-        switch (size) {
-            case 0:
-                return "Tiny";
-            case 1:
-                return "Small";
-            case 2:
-                return "Medium";
-            case 3:
-                return "Normal";
-            case 4:
-                return "Large";
-            case 5:
-                return "Giant";
-            case 6:
-                return "Luda";
-            default:
-                return size
-        }
-    };
 
     if (isLoading) {
-        return <>
-            <Spinner type="grow" color="light"/>
-            <p className="text-white">Loading lobbies...</p>
-        </>
+        return <Loading text={'Loading lobbies...'}/>
     }
+
     return <>
         <Table dark size={'sm'}>
             <thead>
@@ -114,10 +66,10 @@ export default function Friends() {
                 }
                 return <tr key={result.match_uuid}>
                     <th scope="row"><Button onClick={() => joinLobby(result.lobby_id)}>Join</Button></th>
-                    <td>{mapGameTypeComponent(result.game_type)}</td>
+                    <td><GameType type={result.game_type}/></td>
                     <td>{result.name}</td>
                     <td>{result.num_players + '/' + result.num_slots}</td>
-                    <td>{result.map_type} - ({mapSizeComponent(result.map_size)})</td>
+                    <td>{result.map_type} - (<MapSize size={result.map_size}/>)</td>
                     <td>{result.server}</td>
                     <td>{result.average_rating}</td>
                 </tr>

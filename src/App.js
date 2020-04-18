@@ -6,7 +6,7 @@ import {HashRouter as Router} from "react-router-dom";
 
 function App() {
     return (
-        <Router basename='/aoe2-lobby'>
+        <Router basename='/'>
             <div className="App">
                 <Navigation/>
             </div>
