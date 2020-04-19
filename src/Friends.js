@@ -26,7 +26,7 @@ export default function Friends() {
 
     const fetchData = () => {
         console.log('searching for lobbies')
-        fetch("https://cors-anywhere.herokuapp.com/https://aoe2.net/api/lobbies?game=aoe2de")
+        fetch("https://aoe2.net/api/lobbies?game=aoe2de")
             .then(res => res.json())
             .then(
                 (result) => {
