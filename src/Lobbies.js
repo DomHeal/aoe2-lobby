@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button} from 'reactstrap';
+import {Button, Col, Row} from 'reactstrap';
 import './App.css';
 import Loading from "./components/Loading";
 import {gameType, joinLobby, mapSize} from "./util";
@@ -24,7 +24,7 @@ const columns = [
     },
     {
         name: 'Players',
-        selector: 'players',
+        selector: 'playersCount',
         sortable: true
     },
     {
@@ -43,6 +43,33 @@ const columns = [
         sortable: true,
     },
 
+];
+const subColumns = [
+    // profile_id, steam_id, name, clan, country, slot, slot_type, rating, games, wins, streak, drops, color, team, civ
+    {
+        name: 'Name',
+        selector: 'name',
+    },
+    {
+        name: 'Games',
+        selector: 'games',
+    },
+    {
+        name: 'Wins',
+        selector: 'wins',
+    },
+    {
+        name: 'Streak',
+        selector: 'streak',
+    },
+    {
+        name: 'Drops',
+        selector: 'drops',
+    },
+    {
+        name: 'Rating',
+        selector: 'rating',
+    },
 ];
 
 export default function Friends() {
@@ -88,12 +115,14 @@ export default function Friends() {
         if (item.has_password) {
             return list
         }
+
         list.push({
             join: item.lobby_id,
             id: item.match_uuid,
             name: item.name,
             server: item.server,
-            players: item.num_players + '/' + item.num_slots,
+            playersCount: item.num_players + '/' + item.num_slots,
+            players: item.players,
             rating: item.average_rating,
             map: gameType(item.game_type),
             type: mapSize(item.map_type)
@@ -101,10 +130,16 @@ export default function Friends() {
         return list
     },[]);
 
-    const SubTable = ( data ) => <DataTable/>;
+    const SubTable = ({ data }) => <Row><Col sm="12" lg={{ size: 6, offset: 3 }}><DataTable
+            columns={subColumns}
+            data={data.players}
+            highlightOnHover
+            dense
+            theme={'dark'}/>
+    </Col>
+    </Row>
 
-    return <>
-        <DataTable
+    return <DataTable
             columns={columns}
             data={data}
             theme={'dark'}
@@ -114,8 +149,8 @@ export default function Friends() {
             selectableRowsComponentProps={{ inkDisabled: true }}
             expandableRows
             expandOnRowClicked
-            expandableRowsComponent={SubTable(data)}
+            expandableRowsComponent={<SubTable/>}
+            // fixedHeader
+            noHeader
         />
-    </>
-
 }
