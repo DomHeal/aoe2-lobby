@@ -1,27 +1,68 @@
 import React, {useEffect, useState} from "react";
-import {Button, Table} from 'reactstrap';
+import {Alert, Button, Table} from 'reactstrap';
 import './App.css';
-import GameType from "./components/GameType";
-import MapSize from "./components/MapSize";
 import Loading from "./components/Loading";
-import {joinLobby} from "./util";
+import {gameType, joinLobby, mapSize} from "./util";
+import DataTable from "react-data-table-component";
 
 const friendsList = [
-    "Xeon",
+    "xeon",
     "methaddict",
-    "WELSHWONDER",
-    "FatKidsLag_IRL"
+    "welshwonder",
+    "fatkidslag_irl"
 ];
+
+const columns = [
+    {
+        name: 'Join',
+        selector: 'join',
+        button: true,
+        cell: row => <Button onClick={() => joinLobby(row.join)}>Join</Button>
+    },
+    {
+        name: 'Type',
+        selector: 'type',
+        sortable: true
+    },
+    {
+        name: 'Name',
+        selector: 'name',
+        sortable: true,
+    },
+    {
+        name: 'Players',
+        selector: 'players',
+        sortable: true
+    },
+    {
+        name: 'Map',
+        selector: 'map',
+        sortable: true,
+    },
+    {
+        name: 'Server',
+        selector: 'server',
+        sortable: true,
+    },
+    {
+        name: 'Average Rating',
+        selector: 'rating',
+        sortable: true,
+    },
+
+];
+
 export default function Friends() {
     const [results, setResults] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState('')
 
     useEffect(() => {
         fetchData()
-        const interval = setInterval(() => {
-            fetchData()
-        }, 5000);
-        return () => clearInterval(interval);
+        // const interval = setInterval(() => {
+        //     fetchData()
+        // }, 5000);
+        // return () => clearInterval(interval);
     });
 
     const fetchData = () => {
@@ -30,23 +71,31 @@ export default function Friends() {
             .then(res => res.json())
             .then(
                 (result) => {
-                    // console.log(result)
-                    const x = [];
+                    console.log(result)
+                    const friendsFoundList = [];
                     for (const res of result) {
-                        // console.log(res)
-                        const found = res.players.filter(playe => friendsList.includes(playe.name));
-                        // console.log(found)
+                        const found = res.players.filter(playe => friendsList.includes(playe.name.toLowerCase()));
                         if (found.length > 0){
                             console.log("friend found");
-                            x.push(res)
+                            friendsFoundList.push(res)
                         }
                     }
-
-                    setResults(x);
+                    const tableData = friendsFoundList.map(item => { return {
+                        join: item.lobby_id,
+                        id: item.match_uuid,
+                        name: item.name,
+                        server: item.server,
+                        players: item.num_players + '/' + item.num_slots,
+                        rating: item.average_rating,
+                        map: gameType(item.game_type),
+                        type: mapSize(item.map_type)
+                    }})
+                    setResults(tableData);
                     setIsLoading(false)
+                    setError("")
                 },
                 (error) => {
-                    console.error(error)
+                    setError(error)
                 }
             )
     }
@@ -55,35 +104,21 @@ export default function Friends() {
         return <Loading text={'Finding friends...'}/>
     }
     return <>
-        <Table dark size={'sm'}>
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Friend</th>
-                <th>Type</th>
-                <th>Name</th>
-                <th>Players</th>
-                <th>Map</th>
-                <th>Server</th>
-                <th>Average Rating</th>
-            </tr>
-            </thead>
-            <tbody>
-            {results.map(result => {
-                console.log(result)
-                return <tr key={result.match_uuid}>
-                    <th scope="row"><Button onClick={() => joinLobby(result.lobby_id)}>Join</Button></th>
-                    <td>{result.players.map(player => <p>{player.name}</p>)}</td>
-                    <td><GameType type={result.game_type}/></td>
-                    <td>{result.name}</td>
-                    <td>{result.num_players + '/' + result.num_slots}</td>
-                    <td>{result.map_type} - (<MapSize size={result.map_size}/>)</td>
-                    <td>{result.server}</td>
-                    <td>{result.average_rating}</td>
-                </tr>
-            })}
-            </tbody>
-        </Table>
+        {error === "" && <Alert color="danger">
+            Failed to get aoe2.net data - {error}
+        </Alert>}
+        <DataTable
+            columns={columns}
+            data={results}
+            theme={'dark'}
+            pointerOnHover
+            // highlightOnHover
+            defaultSortField="name"
+            selectableRowsComponentProps={{ inkDisabled: true }}
+            expandableRows
+            expandOnRowClicked
+            // expandableRowsComponent={SubTable(data)}
+        />
     </>
 
 }

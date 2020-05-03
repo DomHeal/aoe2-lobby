@@ -1,10 +1,50 @@
-import React, {useEffect, useState} from "react";
-import {Button, Table} from 'reactstrap';
+import React, {useEffect, useMemo, useState} from "react";
+import {Button} from 'reactstrap';
 import './App.css';
-import GameType from "./components/GameType";
-import MapSize from "./components/MapSize";
 import Loading from "./components/Loading";
-import {joinLobby} from "./util";
+import {gameType, joinLobby, mapSize} from "./util";
+import DataTable from "react-data-table-component";
+import styled from 'styled-components';
+
+const columns = [
+    {
+        name: 'Join',
+        selector: 'join',
+        button: true,
+        cell: row => <Button onClick={() => joinLobby(row.join)}>Join</Button>
+    },
+    {
+        name: 'Type',
+        selector: 'type',
+        sortable: true
+    },
+    {
+        name: 'Name',
+        selector: 'name',
+        sortable: true,
+    },
+    {
+        name: 'Players',
+        selector: 'players',
+        sortable: true
+    },
+    {
+        name: 'Map',
+        selector: 'map',
+        sortable: true,
+    },
+    {
+        name: 'Server',
+        selector: 'server',
+        sortable: true,
+    },
+    {
+        name: 'Average Rating',
+        selector: 'rating',
+        sortable: true,
+    },
+
+];
 
 export default function Friends() {
     const [results, setResults] = useState([]);
@@ -39,44 +79,44 @@ export default function Friends() {
         return <Loading text={'Loading lobbies...'}/>
     }
 
-    return <>
-        <Table dark size={'sm'}>
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Type</th>
-                <th>Name</th>
-                <th>Players</th>
-                <th>Map</th>
-                <th>Server</th>
-                <th>Average Rating</th>
-            </tr>
-            </thead>
-            <tbody>
-            {results.map(result => {
-                console.log(result)
-                if (result.num_players === result.num_slots) {
-                    return null
-                }
-                if (result.server !== 'westeurope' && result.server !== 'ukwest') {
-                    return null
-                }
-                if (result.has_password) {
-                    return null
-                }
-                return <tr key={result.match_uuid}>
-                    <th scope="row"><Button onClick={() => joinLobby(result.lobby_id)}>Join</Button></th>
-                    <td><GameType type={result.game_type}/></td>
-                    <td>{result.name}</td>
-                    <td>{result.num_players + '/' + result.num_slots}</td>
-                    <td>{result.map_type} - (<MapSize size={result.map_size}/>)</td>
-                    <td>{result.server}</td>
-                    <td>{result.average_rating}</td>
-                </tr>
-            })}
+    const data = results.reduce((list, item) => {
+        if (item.num_players === item.num_slots) {
+            return list
+        }
+        if (item.server !== 'westeurope' && item.server !== 'ukwest') {
+            return list
+        }
+        if (item.has_password) {
+            return list
+        }
+        list.push({
+            join: item.lobby_id,
+            id: item.match_uuid,
+            name: item.name,
+            server: item.server,
+            players: item.num_players + '/' + item.num_slots,
+            rating: item.average_rating,
+            map: gameType(item.game_type),
+            type: mapSize(item.map_type)
+        })
+        return list
+    },[]);
 
-            </tbody>
-        </Table>
+    const SubTable = ( data ) => <DataTable/>;
+
+    return <>
+        <DataTable
+            columns={columns}
+            data={data}
+            theme={'dark'}
+            pointerOnHover
+            // highlightOnHover
+            defaultSortField="name"
+            selectableRowsComponentProps={{ inkDisabled: true }}
+            expandableRows
+            expandOnRowClicked
+            expandableRowsComponent={SubTable(data)}
+        />
     </>
 
 }
