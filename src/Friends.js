@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Alert, Button, Table} from 'reactstrap';
+import {Alert, Button} from 'reactstrap';
 import './App.css';
 import Loading from "./components/Loading";
 import {gameType, joinLobby, mapSize} from "./util";

@@ -1,10 +1,9 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button} from 'reactstrap';
 import './App.css';
 import Loading from "./components/Loading";
 import {gameType, joinLobby, mapSize} from "./util";
 import DataTable from "react-data-table-component";
-import styled from 'styled-components';
 
 const columns = [
     {
