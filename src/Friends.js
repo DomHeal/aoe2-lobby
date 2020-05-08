@@ -74,7 +74,10 @@ export default function Friends() {
                     console.log(result)
                     const friendsFoundList = [];
                     for (const res of result) {
-                        const found = res.players.filter(playe => friendsList.includes(playe.name.toLowerCase()));
+                        const found = res.players.filter(playe => {
+                            if (playe.name == null) return false
+                            friendsList.includes(playe.name.toLowerCase())
+                        });
                         if (found.length > 0){
                             console.log("friend found");
                             friendsFoundList.push(res)
