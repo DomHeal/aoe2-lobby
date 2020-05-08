@@ -61,7 +61,7 @@ export default function Friends() {
         fetchData()
         const interval = setInterval(() => {
             fetchData()
-        }, 5000);
+        }, 3000);
         return () => clearInterval(interval);
     });
 
@@ -76,7 +76,7 @@ export default function Friends() {
                     for (const res of result) {
                         const found = res.players.filter(playe => {
                             if (playe.name == null) return false
-                            friendsList.includes(playe.name.toLowerCase())
+                            return friendsList.includes(playe.name.toLowerCase())
                         });
                         if (found.length > 0){
                             console.log("friend found");
