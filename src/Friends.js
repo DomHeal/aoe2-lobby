@@ -107,7 +107,7 @@ export default function Friends() {
         return <Loading text={'Finding friends...'}/>
     }
     return <>
-        {error === "" && <Alert color="danger">
+        {error !== "" && <Alert color="danger">
             Failed to get aoe2.net data - {error}
         </Alert>}
         <DataTable
